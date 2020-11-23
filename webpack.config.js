@@ -2,6 +2,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+const litFolders = [
+  path.resolve(__dirname, '/src/views'),
+  path.resolve(__dirname, '/src/components')
+]
+
 module.exports = {
   mode: 'development',
   entry: './src/index',
@@ -34,7 +39,22 @@ module.exports = {
       },
       {
         test: /\.(c|s[ac])ss$/i,
-        use: ['lit-scss-loader', 'extract-loader', 'css-loader', 'sass-loader']
+        exclude: litFolders,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.(c|s[ac])ss$/i,
+        include: litFolders,
+        use: [
+          'lit-scss-loader',
+          'extract-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
