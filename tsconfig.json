@@ -1,7 +1,10 @@
 {
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "compilerOptions": {
     "allowJs": true,
+    "baseUrl": "src",
     "declaration": true,
     "experimentalDecorators": true,
     "emitDeclarationOnly": true,
@@ -9,6 +12,14 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "./dist/",
-    "target": "es5"
+    "target": "es5",
+    "paths": {
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@views/*": [
+        "views/*"
+      ]
+    }
   }
 }

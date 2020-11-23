@@ -1,7 +1,7 @@
 import { LitElement, customElement, html } from 'lit-element';
 
-import resetCSS from '../styles/reset.scss';
-import appCSS from './app.scss';
+import resetCSS from '@styles/reset.scss';
+import appCSS from '@views/app.scss';
 
 @customElement('lit-app')
 export class App extends LitElement {
