@@ -1,9 +1,11 @@
 import { customElement, html, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 
+import KEY_CODES from '@constants/key-codes';
+import { BaseElement } from 'components/base-element';
+
 import inputGroupCSS from '@components/input-group/input-group.style';
 import iconsCSS from '@litStyles/icons.style';
-import { BaseElement } from '../base-element';
 
 @customElement('lit-input-group')
 export class InputGroup extends BaseElement {
@@ -53,7 +55,7 @@ export class InputGroup extends BaseElement {
   }
 
   private handleInputKeyUp = (event: KeyboardEvent) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === KEY_CODES.ENTER) {
       event.preventDefault();
       this.filterCountries();
     }
