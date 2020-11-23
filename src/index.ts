@@ -1,5 +1,7 @@
-import './views/app';
+import '@components/input-group/input-group';
+import '@components/searcher-bar/searcher-bar';
 
-const rootNode = document.getElementById('app-root');
-const appNode = document.createElement('lit-app');
-rootNode ? rootNode.append(appNode) : false;
+import '@views/countries/countries';
+import '@views/app';
+
+import './index.scss';

@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: './'
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -26,16 +26,21 @@ module.exports = {
         }
       },
       {
-        test: /\.(ts|js)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        test: /\.(c|s[ac])ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: /\.(c|s[ac])ss$/i,
-        use: ['lit-scss-loader', 'extract-loader', 'css-loader', 'sass-loader']
-      }
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets',
+              name: '[name].[ext]'
+            }
+          },
+        ],
+      },
     ]
   },
   devServer: {
