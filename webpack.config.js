@@ -10,10 +10,17 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
+      {
+        test: /\.(ts|js)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
       {
         test: /\.(ts|js)$/,
         exclude: /node_modules/,

@@ -1,9 +1,10 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, customElement, html } from 'lit-element';
 
 import resetCSS from '../styles/reset.scss';
 import appCSS from './app.scss';
 
-class App extends LitElement {
+@customElement('lit-app')
+export class App extends LitElement {
 
   static get styles() {
     return [resetCSS, appCSS];
@@ -15,5 +16,3 @@ class App extends LitElement {
     `;
   }
 }
-
-customElements.define('lit-app', App); 
