@@ -1,5 +1,5 @@
 # lit-countries
-# [DEMO](https://idcuadro82.github.io/todo-app-vanilla-javascript/)
+# [DEMO](https://idcuadro82.github.io/lit-countries/)
 
 ## Getting Started
 1. Run `npm install` to resolve all dependencies (may take a minute)
