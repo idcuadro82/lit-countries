@@ -44,8 +44,8 @@ class CountriesListObserver {
     return Object.keys(this._filteredCountriesList).find(region => this._filteredCountriesList[region].length);
   }
 
-  filterCountriesList = (countryName?: String) => {
-    if (countryName) this._currentFilter = countryName;
+  filterCountriesList = (countryName: String) => {
+    this._currentFilter = countryName;
     this._filteredCountriesList = this._groupByRegion(this._countriesList, this._currentFilter);
     this.notify();
   }
@@ -57,7 +57,7 @@ class CountriesListObserver {
   setCountryFavoriteState = (selectedCountry: Country) => {
     let countryRef = this._countriesList.find(country => country.alpha3Code === selectedCountry.alpha3Code);
     countryRef.isFavorite = !countryRef.isFavorite;
-    this.filterCountriesList()
+    this.filterCountriesList(this._currentFilter)
   }
 
   notify = () => {
