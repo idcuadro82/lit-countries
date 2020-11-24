@@ -22,8 +22,14 @@ const countriesListCSS = css`
 
   .country {
     align-items: center;
+    cursor: pointer;
     display: flex;
     margin: 10px 0;
+    width: fit-content;
+  }
+
+  .country:hover .country__name {
+    color: blue;
   }
 
   .country__flag {

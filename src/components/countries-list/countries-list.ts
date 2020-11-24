@@ -2,11 +2,10 @@ import { customElement, html } from 'lit-element';
 
 import { BaseElement } from '@components/base-element';
 import countriesListObserver from '@observers/countries-list.observer';
-
-import countriesListCSS from './countries-list.styles';
+import modalObserver from '@observers/modal.observer';
 import Country from '@models/country.model';
 
-
+import countriesListCSS from './countries-list.styles';
 @customElement('lit-countries-list')
 export class CountriesList extends BaseElement {
   static get styles() {
@@ -34,8 +33,8 @@ export class CountriesList extends BaseElement {
                 ${
                   region.map((country: Country)=> {
                     return html `
-                      <div class="country">
-                        <img class="country__flag" src=${country.flag} alt="">
+                      <div class="country" @click=${() => this.handlerCountryClick(country)}>
+                        <img class="country__flag" src=${country.flag} alt="flag">
                         <span class="country__name">${country.name}</span>
                       </div>
                     `;
@@ -47,5 +46,10 @@ export class CountriesList extends BaseElement {
         }
       </div>
     `;
+  }
+
+  handlerCountryClick = (country: Country) => {
+    modalObserver.selectedCountry = country;
+    modalObserver.isOpened = true;
   }
 }

@@ -13,7 +13,7 @@ const countriesCSS = css`
 
   .countries-content {
     max-width: var(--xl-content-width);
-    padding-top: 40px;
+    padding: 40px 0;
     width: 100%;
   }
 `;

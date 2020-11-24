@@ -34,8 +34,9 @@ export class InputGroup extends BaseElement {
           @change=${this.handleInputOnChange}
           @keyup=${this.handleInputKeyUp}
         >
-        ${this.icon && 
+        ${this.icon ?
           html`<span class=${this.resolveIconClasses(this.icon)} @click=${this.handleIconClick}></span>`
+          : null
         }
       </div>
     `;
