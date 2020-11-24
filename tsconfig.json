@@ -20,11 +20,23 @@
       "@components/*": [
         "components/*"
       ],
+      "@config/*": [
+        "config/*"
+      ],
       "@constants/*": [
         "constants/*"
       ],
       "@litStyles/*": [
         "lit-styles/*"
+      ],
+      "@models/*": [
+        "models/*"
+      ],
+      "@observers/*": [
+        "observers/*"
+      ],
+      "@services/*": [
+        "services/*"
       ],
       "@styles/*": [
         "styles/*"
