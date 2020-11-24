@@ -5,6 +5,7 @@ const countriesListCSS = css`
     align-items: flex-start;
     display: flex;
     justify-content: space-between;
+    position: relative;
     width: 100%;
   }
 

@@ -4,6 +4,7 @@ import { BaseElement } from '@components/base-element';
 import countriesService, { CountriesService } from '@services/countries.service';
 import Country from '@models/country.model';
 import countriesListObserver from '@observers/countries-list.observer';
+import loaderObserver from '@observers/loader.observer';
 
 import countriesCSS from './countries.styles';
 
@@ -17,10 +18,12 @@ export class Countries extends BaseElement {
 
   constructor() {
     super();
+    loaderObserver.isLoading = true;
     this.countriesService.getAllCountries()
       .then((response: Country[]) => {
         countriesListObserver.countriesList = response;
-      });
+      })
+      .finally(() => loaderObserver.isLoading = false);
   }
 
   render() {
