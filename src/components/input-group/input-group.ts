@@ -2,7 +2,8 @@ import { customElement, html, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 
 import KEY_CODES from '@constants/key-codes';
-import { BaseElement } from 'components/base-element';
+import { BaseElement } from '@components/base-element';
+import LIT_EVENTS from '@constants/lit-events';
 
 import inputGroupCSS from '@components/input-group/input-group.style';
 import iconsCSS from '@litStyles/icons.style';
@@ -57,15 +58,23 @@ export class InputGroup extends BaseElement {
   private handleInputKeyUp = (event: KeyboardEvent) => {
     if (event.keyCode === KEY_CODES.ENTER) {
       event.preventDefault();
-      this.filterCountries();
+      this.dispatchEvent(
+        new CustomEvent(LIT_EVENTS.FORM_GROUP_INPUT_ENTER, { 
+          detail: { inputValue: this.value },
+          bubbles: true, 
+          composed: true 
+        })
+      );
     }
   }
 
-  private handleIconClick = () => {
-    this.filterCountries();
-  }
-
-  private filterCountries = () => {
-    console.log('Filtered Countries!! => ', this.value);
+  private handleIconClick = () => {      
+    this.dispatchEvent(
+      new CustomEvent(LIT_EVENTS.FORM_GROUP_ICON_CLICK, { 
+        detail: { inputValue: this.value },
+        bubbles: true, 
+        composed: true 
+      })
+    );
   }
 }

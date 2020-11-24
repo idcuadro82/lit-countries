@@ -1,36 +1,51 @@
 import Country from '@models/country.model';
 import REGIONS_CONFIG from '@config/regions.config';
 import { IFilteredCountries, initFilteredCountries } from '@models/filtered-countries.model';
+import deepClone from '@utils/deep-clone';
 
 class CountriesListObserver {
   private static instance: CountriesListObserver;
 
   _countriesList: Country[] = [];
-  _countriesFilteredList: IFilteredCountries = initFilteredCountries;
+  _filteredCountriesList: IFilteredCountries = {};
   _subscribers: any[] = [];
 
-  public static getInstance(): CountriesListObserver {
+  static getInstance(): CountriesListObserver {
     this.instance = CountriesListObserver.instance || new CountriesListObserver();
     return this.instance;
   }
 
+  constructor() {
+    this._filteredCountriesList = deepClone(initFilteredCountries);
+  }
+
   get countriesList(): Country[] {
-    return this._countriesFilteredList;
+    return this._filteredCountriesList;
   };
 
   set countriesList(countriesList: Country[]) {
-    this._countriesList = JSON.parse(JSON.stringify(countriesList));
-    this._countriesFilteredList = this._groupByRegion(JSON.parse(JSON.stringify(countriesList)));
+    this._countriesList = deepClone(countriesList);
+    this._filteredCountriesList = this._groupByRegion(deepClone(countriesList));
     this.notify();
   }
 
-  private _groupByRegion = (countriesList: Country[]) => {
-    const regions: IFilteredCountries = initFilteredCountries;
+  private _groupByRegion = (countriesList: Country[], countryName?: String) => {
+    const regions: IFilteredCountries = deepClone(initFilteredCountries);
     countriesList.forEach((country: Country) => {
       const validRegion = country.region && country.region !== REGIONS_CONFIG.POLAR;
-      validRegion && regions[country.region].push(country);
+      const validName = countryName ? country.name.toLowerCase().includes(countryName.toLowerCase()) : true;
+      validRegion && validName && regions[country.region].push(country);
     });
     return regions;
+  }
+
+  hasCountries = () => {
+    return Object.keys(this._filteredCountriesList).find(region => this._filteredCountriesList[region].length);
+  }
+
+  filterCountriesList = (countryName: String) => {
+    this._filteredCountriesList = this._groupByRegion(this._countriesList, countryName);
+    this.notify();
   }
 
   addSubscriber = (callback: Function) => {

@@ -4,7 +4,7 @@
   ],
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "declaration": true,
     "experimentalDecorators": true,
     "emitDeclarationOnly": true,
@@ -40,6 +40,9 @@
       ],
       "@styles/*": [
         "styles/*"
+      ],
+      "@utils/*": [
+        "utils/*"
       ],
       "@views/*": [
         "views/*"

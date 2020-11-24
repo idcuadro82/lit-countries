@@ -25,13 +25,14 @@ export class CountriesList extends BaseElement {
   render() {
     return html`
       <div class="countries-list">
-        ${ 
-          Object.keys(countriesListObserver.countriesList).map((region) => {
-            return html`
+        ${ countriesListObserver.hasCountries() ?
+          Object.keys(countriesListObserver.countriesList).map((regionName) => {
+            const region = countriesListObserver.countriesList[regionName];
+            return region.length ? html`
               <div class="region">
-                <h2 class="region__name">${region}</h2>
+                <h2 class="region__name">${regionName}</h2>
                 ${
-                  countriesListObserver.countriesList[region].map((country: Country)=> {
+                  region.map((country: Country)=> {
                     return html `
                       <div class="country">
                         <img class="country__flag" src=${country.flag} alt="">
@@ -41,8 +42,8 @@ export class CountriesList extends BaseElement {
                   })
                 }
               </div>
-            `;
-          }) 
+            ` : null;
+          }) : html`<span class="no-results">No results found</span>`
         }
       </div>
     `;

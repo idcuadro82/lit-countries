@@ -4,13 +4,14 @@ const countriesListCSS = css`
   .countries-list {
     align-items: flex-start;
     display: flex;
-    justify-content: space-between;
     position: relative;
     width: 100%;
   }
 
   .region {
+    max-width: calc(var(--xl-content-width)/5);
     padding: 0 10px;
+    width: 100%
   }
 
   .region__name {
@@ -32,6 +33,12 @@ const countriesListCSS = css`
 
   .country__name {
     line-height: 1.2;
+  }
+
+  .no-results {
+    font-size: 20px;
+    font-weight: Bold;
+    line-height: 1.6;
   }
 `;
 
