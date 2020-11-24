@@ -6,10 +6,11 @@ import modalObserver from '@observers/modal.observer';
 import Country from '@models/country.model';
 
 import countriesListCSS from './countries-list.styles';
+import iconsCSS from '@litStyles/icons.style';
 @customElement('lit-countries-list')
 export class CountriesList extends BaseElement {
   static get styles() {
-    return [super.styles, countriesListCSS];
+    return [super.styles, iconsCSS,  countriesListCSS];
   }
 
   constructor () {
@@ -36,6 +37,7 @@ export class CountriesList extends BaseElement {
                       <div class="country" @click=${() => this.handlerCountryClick(country)}>
                         <img class="country__flag" src=${country.flag} alt="flag">
                         <span class="country__name">${country.name}</span>
+                        ${country.isFavorite ? html`<span class="star-checked-icon"></span>` : null}
                       </div>
                     `;
                   })

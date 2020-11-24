@@ -1,4 +1,5 @@
 import Country from '@models/country.model';
+import deepClone from '@utils/deep-clone';
 
 class ModalObserver {
   private static instance: ModalObserver;
@@ -17,7 +18,7 @@ class ModalObserver {
   };
 
   set selectedCountry(country: Country) {
-    this._selectedCountry = country;
+    this._selectedCountry = deepClone(country);
   }
 
   get isOpened(): boolean {

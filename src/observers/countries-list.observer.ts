@@ -6,6 +6,7 @@ import deepClone from '@utils/deep-clone';
 class CountriesListObserver {
   private static instance: CountriesListObserver;
 
+  _currentFilter: String = '';
   _countriesList: Country[] = [];
   _filteredCountriesList: IFilteredCountries = {};
   _subscribers: any[] = [];
@@ -43,13 +44,20 @@ class CountriesListObserver {
     return Object.keys(this._filteredCountriesList).find(region => this._filteredCountriesList[region].length);
   }
 
-  filterCountriesList = (countryName: String) => {
-    this._filteredCountriesList = this._groupByRegion(this._countriesList, countryName);
+  filterCountriesList = (countryName?: String) => {
+    if (countryName) this._currentFilter = countryName;
+    this._filteredCountriesList = this._groupByRegion(this._countriesList, this._currentFilter);
     this.notify();
   }
 
   addSubscriber = (callback: Function) => {
     this._subscribers.push(callback);
+  }
+
+  setCountryFavoriteState = (selectedCountry: Country) => {
+    let countryRef = this._countriesList.find(country => country.alpha3Code === selectedCountry.alpha3Code);
+    countryRef.isFavorite = !countryRef.isFavorite;
+    this.filterCountriesList()
   }
 
   notify = () => {

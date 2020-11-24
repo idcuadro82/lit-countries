@@ -2,18 +2,18 @@ import { css } from 'lit-element';
 
 const countryModalCSS = css`
   :host {
-    --form-icon-size: 25px;
+    --icon-size: 25px;
   }
 
   .close-icon {
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    height: var(--form-icon-size);
+    height: var(--icon-size);
     position: absolute;
     right: 15px;
     top: 15px;
-    width: var(--form-icon-size);
+    width: var(--icon-size);
     z-index: 10;
   }
 
@@ -73,13 +73,21 @@ const countryModalCSS = css`
   .country-name {
     font-size: 24px;
     line-height: 1.2;
-    margin-right: 20px;
+    margin-right: 15px;
   }
 
   .subtitle {
     font-weight: 700;
     line-height: 1.2;
     margin-right: 5px;
+  }
+
+  .star-icon {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+    height: var(--icon-size);
+    width: var(--icon-size);
   }
 `;
 

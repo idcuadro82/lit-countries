@@ -39,12 +39,21 @@ const countriesListCSS = css`
 
   .country__name {
     line-height: 1.2;
+    margin-right: 5px;
   }
 
   .no-results {
     font-size: 20px;
     font-weight: Bold;
     line-height: 1.6;
+  }
+
+  .star-checked-icon {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    flex-shrink: 0;
+    height: 10px;
+    width: 10px;
   }
 `;
 

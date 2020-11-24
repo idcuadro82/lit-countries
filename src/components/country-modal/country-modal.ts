@@ -3,6 +3,7 @@ import { classMap } from 'lit-html/directives/class-map';
 
 import { BaseElement } from '@components/base-element';
 import modalObserver from '@observers/modal.observer';
+import countriesListObserver from '@observers/countries-list.observer';
 
 import countryModalCSS from './country-modal.style';
 import iconsCSS from '@litStyles/icons.style';
@@ -24,7 +25,7 @@ export class CountryModal extends BaseElement {
   render() {
     const { selectedCountry } = modalObserver;
     return html`
-      <div class=${this.resolveClasses(this.opened)}>
+      <div class=${this.resolveModalClasses(this.opened)}>
         <div class="modal-container">
           <span class="close-icon" @click=${this.resolveCloseModal}></span>
           <div class="modal-content">
@@ -34,6 +35,10 @@ export class CountryModal extends BaseElement {
                 <div class="country-info-container">
                   <div class="modal-row title-row">
                     <h2 class="country-name">${selectedCountry.name}</h2>
+                    <span
+                      class=${this.resolveFavoriteClasses(selectedCountry.isFavorite)}
+                      @click=${this.handleFavoriteClick}>
+                    </span>
                   </div>
                   <div class="modal-row">
                     <span class="subtitle">Region:</span>
@@ -87,8 +92,18 @@ export class CountryModal extends BaseElement {
     modalObserver.isOpened = false;
   }
 
-  resolveClasses = (opened: boolean) => {
-    let classes: any = { 'modal-wrapper': true, 'modal-opened': opened };
-    return classMap(classes);
+  handleFavoriteClick = () => {
+    const { selectedCountry } = modalObserver;
+    selectedCountry.isFavorite = !selectedCountry.isFavorite;
+    countriesListObserver.setCountryFavoriteState(selectedCountry);
+    this.requestUpdate();
+  }
+
+  resolveModalClasses = (opened: boolean) => {
+    return classMap({ 'modal-wrapper': true, 'modal-opened': opened });
+  }
+
+  resolveFavoriteClasses = (isFavorite: boolean) => {
+    return classMap({ 'star-icon': true, 'star-checked-icon': isFavorite });
   }
 }

@@ -6,6 +6,7 @@ interface Country {
   name: String;
   population: Number;
   region: String;
+  isFavorite: Boolean;
 }
 
 export default Country;
