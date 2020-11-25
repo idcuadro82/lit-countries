@@ -1,4 +1,4 @@
-import { customElement, html, property } from 'lit-element';
+import { customElement, html, property, query } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 
 import KEY_CODES from '@constants/key-codes';
@@ -18,6 +18,9 @@ export class InputGroup extends BaseElement {
   placeholder: String = '';
   @property({ type: String, reflect: true },)
   value: String = '';
+
+  @query('input')
+  private inputRef: HTMLInputElement;
 
   static get styles() {
     return [super.styles, iconsCSS, inputGroupCSS];
@@ -56,17 +59,16 @@ export class InputGroup extends BaseElement {
     this.value = (event.target as HTMLInputElement).value;
   }
 
-  private handleInputKeyUp = (event: KeyboardEvent) => {
-    if (event.keyCode === KEY_CODES.ENTER) {
-      event.preventDefault();
-      this.dispatchEvent(
-        new CustomEvent(LIT_EVENTS.FORM_GROUP_INPUT_ENTER, { 
-          detail: { inputValue: this.value },
-          bubbles: true, 
-          composed: true 
-        })
-      );
-    }
+  private handleInputKeyUp = (event: KeyboardEvent): void => {
+    event.preventDefault();
+    this.value = this.inputRef.value;
+    this.dispatchEvent(
+      new CustomEvent(LIT_EVENTS.FORM_GROUP_INPUT, { 
+        detail: { inputValue: this.value },
+        bubbles: true, 
+        composed: true 
+      })
+    );
   }
 
   private handleIconClick = () => {      
