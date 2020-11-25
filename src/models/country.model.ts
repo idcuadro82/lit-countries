@@ -6,7 +6,7 @@ interface ICountry {
   flag: string;
   languages: { name: string }[];
   name: string;
-  population: Number;
+  population: number;
   region: string;
   isFavorite: boolean;
 }

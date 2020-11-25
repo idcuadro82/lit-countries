@@ -10,6 +10,7 @@ import ICONS from '@constants/icons';
 
 import countryModalCSS from './country-modal.styles';
 import iconsCSS from '@litStyles/icons.styles';
+import { populationFilter } from '../../utils/pupulation.filter';
 
 @customElement('lit-country-modal')
 export class CountryModal extends BaseElement {
@@ -49,7 +50,7 @@ export class CountryModal extends BaseElement {
                   </div>
                   <div class="modal-row">
                     <span class="subtitle">Population:</span>
-                    <span>${selectedCountry.population}</span>
+                    <span>${populationFilter(selectedCountry.population)}</span>
                   </div>
                   <div class="modal-row">
                     <span class="subtitle">Capital:</span>
