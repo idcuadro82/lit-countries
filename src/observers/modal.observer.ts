@@ -1,11 +1,11 @@
 import ICountry from '@models/country.model';
 import deepClone from '@utils/deep-clone';
+import { BaseObserver } from './base.observer';
 
-class ModalObserver {
+class ModalObserver extends BaseObserver<ModalObserver> {
   private static instance: ModalObserver;
 
   _isOpened: boolean = false;
-  _subscribers: any[] = [];
   _selectedCountry: ICountry = null;
 
   public static getInstance(): ModalObserver {
@@ -27,17 +27,7 @@ class ModalObserver {
 
   set isOpened(isOpened: boolean) {
     this._isOpened = isOpened;
-    this.notify();
-  }
-
-  addSubscriber = (callback: Function): void => {
-    this._subscribers.push(callback);
-  }
-
-  notify = (): void => {
-    this._subscribers.forEach(subscriber => {
-      subscriber(this.isOpened);
-    });
+    this.notify(this._isOpened);
   }
 }
 

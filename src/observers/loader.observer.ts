@@ -1,8 +1,8 @@
-class LoaderObserver {
+import { BaseObserver } from './base.observer';
+class LoaderObserver extends BaseObserver<LoaderObserver> {
   private static instance: LoaderObserver;
 
   _isLoading: boolean = false;
-  _subscribers: any[] = [];
 
   public static getInstance(): LoaderObserver {
     this.instance = LoaderObserver.instance || new LoaderObserver();
@@ -15,17 +15,7 @@ class LoaderObserver {
 
   set isLoading(isLoading: boolean) {
     this._isLoading = isLoading;
-    this.notify();
-  }
-
-  addSubscriber = (callback: Function): void => {
-    this._subscribers.push(callback);
-  }
-
-  notify = (): void => {
-    this._subscribers.forEach(subscriber => {
-      subscriber(this.isLoading);
-    });
+    this.notify(this._isLoading);
   }
 }
 

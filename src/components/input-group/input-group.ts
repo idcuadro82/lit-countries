@@ -4,7 +4,7 @@ import { classMap } from 'lit-html/directives/class-map';
 import { BaseElement } from '@components/base-element';
 import LIT_EVENTS from '@constants/lit-events';
 
-import inputGroupCSS from '@components/input-group/input-group.style';
+import inputGroupCSS from '@components/input-group/input-group.styles';
 import iconsCSS from '@litStyles/icons.styles';
 
 @customElement('lit-input-group')

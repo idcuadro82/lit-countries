@@ -22,4 +22,9 @@ export class App extends LitElement {
     this.isLoading = isLoading;
     this.requestUpdate();
   }
+
+  disconnectedCallback() {
+    loaderObserver.removeSubscriber(this.setLoading);
+    super.disconnectedCallback();
+  }
 }

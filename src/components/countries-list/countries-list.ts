@@ -55,4 +55,9 @@ export class CountriesList extends BaseElement {
     modalObserver.selectedCountry = country;
     modalObserver.isOpened = true;
   }
+
+  disconnectedCallback() {
+    countriesListObserver.removeSubscriber(this.countryObserverCallback);
+    super.disconnectedCallback();
+  }
 }

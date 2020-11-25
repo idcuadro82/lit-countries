@@ -1,19 +1,19 @@
 import ICountry from '@models/country.model';
 import { initRegions, IRegions } from '@models/region.model';
 import deepClone from '@utils/deep-clone';
-import { isValidRegion } from '../config/regions.config';
+import { isValidRegion } from '@config/regions.config';
+import { BaseObserver } from '@observers/base.observer';
 
 const countryNameIncludeString = (countryName: string, filter: string) => {
   return filter ? countryName.toLowerCase().includes(filter.toLowerCase()) : true;
 }
 
-class CountriesListObserver {
+class CountriesListObserver extends BaseObserver<CountriesListObserver> {
   private static instance: CountriesListObserver;
 
   _currentFilter: string = '';
   _countriesList: ICountry[] = [];
   _regions: IRegions;
-  _subscribers: any[] = [];
 
   static getInstance(): CountriesListObserver {
     this.instance = CountriesListObserver.instance || new CountriesListObserver();
@@ -21,6 +21,7 @@ class CountriesListObserver {
   }
 
   constructor() {
+    super();
     this._regions = deepClone(initRegions);
   }
 
@@ -30,7 +31,7 @@ class CountriesListObserver {
 
   set regions(regions: IRegions) {
     this._regions = deepClone(regions);
-    this.notify();
+    this.notify(this._regions);
   }
 
   private _groupByRegion = (countries: ICountry[], countryName?: string) => {
@@ -55,23 +56,13 @@ class CountriesListObserver {
   filterCountriesList = (countryName: string) => {
     this._currentFilter = countryName;
     this._regions = this._groupByRegion(this._countriesList, this._currentFilter);
-    this.notify();
-  }
-
-  addSubscriber = (callback: Function) => {
-    this._subscribers.push(callback);
+    this.notify(this._regions);
   }
 
   setCountryFavoriteState = (selectedCountry: ICountry) => {
     let countryRef = this._countriesList.find(country => country.alpha3Code === selectedCountry.alpha3Code);
     countryRef.isFavorite = !countryRef.isFavorite;
     this.filterCountriesList(this._currentFilter)
-  }
-
-  notify = () => {
-    this._subscribers.forEach(subscriber => {
-      subscriber(this.regions);
-    });
   }
 }
 

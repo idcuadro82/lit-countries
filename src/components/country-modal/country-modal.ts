@@ -4,10 +4,11 @@ import { classMap } from 'lit-html/directives/class-map';
 import { BaseElement } from '@components/base-element';
 import modalObserver from '@observers/modal.observer';
 import countriesListObserver from '@observers/countries-list.observer';
-
-import countryModalCSS from './country-modal.style';
-import iconsCSS from '@litStyles/icons.styles';
+import { joinWithCommas } from '@utils/array.utils';
 import ICONS from '@constants/icons';
+
+import countryModalCSS from './country-modal.styles';
+import iconsCSS from '@litStyles/icons.styles';
 
 @customElement('lit-country-modal')
 export class CountryModal extends BaseElement {
@@ -55,11 +56,11 @@ export class CountryModal extends BaseElement {
                   </div>
                   <div class="modal-row">
                     <span class="subtitle">Currency:</span>
-                    <span>${this.joinWithCommas(selectedCountry.currencies)}</span>
+                    <span>${joinWithCommas(selectedCountry.currencies)}</span>
                   </div>
                   <div class="modal-row">
                     <span class="subtitle">Language:</span>
-                    <span>${this.joinWithCommas(selectedCountry.languages)}</span>
+                    <span>${joinWithCommas(selectedCountry.languages)}</span>
                   </div>
                 </div>
                 <div class="country-flag-container">
@@ -71,14 +72,6 @@ export class CountryModal extends BaseElement {
         </div>
       </div>
     `;
-  }
-
-  joinWithCommas = (dataList: any[], fieldName: string = 'name'): string => {
-      return dataList.reduce((accumulator, currentValue, index) => {
-        if (index > 0) accumulator += ', ';
-        accumulator += currentValue[fieldName];
-        return accumulator;
-      }, '');
   }
 
   resolveModalState = (opened: boolean): void => {
@@ -106,5 +99,10 @@ export class CountryModal extends BaseElement {
 
   resolveFavoriteClasses = (isFavorite: boolean): Function => {
     return classMap({ [ICONS.STAR]: true, [ICONS.STAR_CHECKED]: isFavorite });
+  }
+
+  disconnectedCallback() {
+    modalObserver.removeSubscriber(this.resolveModalState);
+    super.disconnectedCallback();
   }
 }

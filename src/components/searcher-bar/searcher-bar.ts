@@ -5,7 +5,7 @@ import { BaseElement } from '@components/base-element';
 import countriesListObserver from '@observers/countries-list.observer';
 import debounce from '@utils/debounce';
 
-import searcherBarCSS from './searcher-bar.style';
+import searcherBarCSS from './searcher-bar.styles';
 
 @customElement('lit-searcher-bar')
 export class SearcherBar extends BaseElement {
