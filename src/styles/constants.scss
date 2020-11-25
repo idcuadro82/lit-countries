@@ -1,9 +1,8 @@
 :root {
-  --xl-content-width: 1280px;
+  --content-lateral-padding: 15px;
+  
+  --sm-content-width: 480px;
   --md-content-width: 768px;
-
-  --breakpoint-sm: 480px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xlg: 1280px;
+  --lg-content-width: 1024px;
+  --xl-content-width: 1280px;
 }

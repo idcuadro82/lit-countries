@@ -20,7 +20,7 @@ const countryModalCSS: CSSResult = css`
   .modal-wrapper {
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
-    height: 100%;
+    height: 100vh;
     left: 0;
     position: fixed;
     top: 0;
@@ -42,8 +42,27 @@ const countryModalCSS: CSSResult = css`
     width: 100%;
   }
 
+  @media (max-width: 768px) {
+    .modal-container {
+      max-width: var(--sm-content-width);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .modal-container {
+      height: 100vh;
+      max-width: none;
+    }
+  }
+
   .modal-content {
     display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .modal-content {
+      flex-direction: column-reverse;
+    }
   }
 
   .modal-content .modal-row {
@@ -69,6 +88,18 @@ const countryModalCSS: CSSResult = css`
     margin: 0 20px;
     padding: 20px 0;
     width: 200px;
+  }
+
+  @media (max-width: 768px) {
+    .country-flag-container {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .country-flag-container {
+      width: 100%;
+    }
   }
 
   .country-flag {

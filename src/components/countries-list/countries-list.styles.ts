@@ -3,19 +3,51 @@ import { css, CSSResult } from 'lit-element';
 const countriesListCSS: CSSResult = css`
   :host {
     --star-icon-size: 12px;
+    --region-width: calc(var(--xl-content-width)/5);
   }
 
   .countries-list {
     align-items: flex-start;
     display: flex;
+    padding: 0 var(--content-lateral-padding);
     position: relative;
     width: 100%;
   }
 
+  @media (max-width: 1280px) {
+    .countries-list {
+      display: grid;
+      grid-template-columns: repeat(3, var(--region-width));
+      justify-content: space-between;
+      row-gap: 50px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .countries-list {
+      grid-template-columns: repeat(2, var(--region-width));
+      justify-content: space-around;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .countries-list {
+      grid-template-columns: 100%;
+    }
+  }
+
   .region {
-    max-width: calc(var(--xl-content-width)/5);
+    max-width: var(--region-width);
     padding: 0 10px;
-    width: 100%
+    width: 100%;
+  }
+
+  @media (max-width: 1280px) {
+    .region {
+      max-width: none;
+      padding: 0;
+      width: 100%;
+    }
   }
 
   .region__name {
