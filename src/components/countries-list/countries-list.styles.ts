@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const countriesListCSS = css`
+const countriesListCSS: CSSResult = css`
   .countries-list {
     align-items: flex-start;
     display: flex;

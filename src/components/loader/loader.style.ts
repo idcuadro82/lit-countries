@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const loaderCSS = css`
+const loaderCSS: CSSResult = css`
   .loader-container {
     align-items: center;
     background-color: var(--white);

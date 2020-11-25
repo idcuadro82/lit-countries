@@ -6,14 +6,15 @@ import modalObserver from '@observers/modal.observer';
 import countriesListObserver from '@observers/countries-list.observer';
 
 import countryModalCSS from './country-modal.style';
-import iconsCSS from '@litStyles/icons.style';
+import iconsCSS from '@litStyles/icons.styles';
+import ICONS from '@constants/icons';
 
 @customElement('lit-country-modal')
 export class CountryModal extends BaseElement {
   opened: boolean;
 
   static get styles() {
-    return [super.styles, iconsCSS, countryModalCSS];
+    return [BaseElement.styles, iconsCSS, countryModalCSS];
   }
 
   constructor() {
@@ -27,7 +28,7 @@ export class CountryModal extends BaseElement {
     return html`
       <div class=${this.resolveModalClasses(this.opened)}>
         <div class="modal-container">
-          <span class="close-icon" @click=${this.resolveCloseModal}></span>
+          <span class=${ICONS.CLOSE} @click=${this.resolveCloseModal}></span>
           <div class="modal-content">
             ${ 
               selectedCountry ? 
@@ -72,7 +73,7 @@ export class CountryModal extends BaseElement {
     `;
   }
 
-  joinWithCommas = (dataList: any[], fieldName: string = 'name'): String => {
+  joinWithCommas = (dataList: any[], fieldName: string = 'name'): string => {
       return dataList.reduce((accumulator, currentValue, index) => {
         if (index > 0) accumulator += ', ';
         accumulator += currentValue[fieldName];
@@ -80,30 +81,30 @@ export class CountryModal extends BaseElement {
       }, '');
   }
 
-  resolveModalState = (opened: boolean) => {
+  resolveModalState = (opened: boolean): void => {
     this.opened = opened;
     const body = document.body;
     body.style.overflowY = opened ? 'hidden' : '';
     this.requestUpdate();
   }
 
-  resolveCloseModal = () => {
+  resolveCloseModal = (): void => {
     modalObserver.selectedCountry = null;
     modalObserver.isOpened = false;
   }
 
-  handleFavoriteClick = () => {
+  handleFavoriteClick = (): void => {
     const { selectedCountry } = modalObserver;
     selectedCountry.isFavorite = !selectedCountry.isFavorite;
     countriesListObserver.setCountryFavoriteState(selectedCountry);
     this.requestUpdate();
   }
 
-  resolveModalClasses = (opened: boolean) => {
+  resolveModalClasses = (opened: boolean): Function => {
     return classMap({ 'modal-wrapper': true, 'modal-opened': opened });
   }
 
-  resolveFavoriteClasses = (isFavorite: boolean) => {
-    return classMap({ 'star-icon': true, 'star-checked-icon': isFavorite });
+  resolveFavoriteClasses = (isFavorite: boolean): Function => {
+    return classMap({ [ICONS.STAR]: true, [ICONS.STAR_CHECKED]: isFavorite });
   }
 }

@@ -3,8 +3,7 @@ export interface IRegionsConfig {
   AMERICAS: String,
   ASIA: String,
   EUROPE: String,
-  OCEANIA: String,
-  POLAR: String
+  OCEANIA: String
 }
 
 const REGIONS_CONFIG: IRegionsConfig = {
@@ -12,8 +11,11 @@ const REGIONS_CONFIG: IRegionsConfig = {
   AMERICAS: 'Americas',
   ASIA: 'Asia',
   EUROPE: 'Europe',
-  OCEANIA: 'Oceania',
-  POLAR: 'Polar'
+  OCEANIA: 'Oceania'
+}
+
+export const isValidRegion = (regionName: string): boolean => {
+  return Object.keys(REGIONS_CONFIG).some((region: string) => region.toLocaleLowerCase() === regionName.toLocaleLowerCase());
 }
 
 export default REGIONS_CONFIG;

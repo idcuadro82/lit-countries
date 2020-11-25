@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const countriesCSS = css`
+const countriesCSS: CSSResult = css`
   .countries {
     display: flex;
     flex-direction: column;

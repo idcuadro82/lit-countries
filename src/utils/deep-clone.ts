@@ -1,3 +1,3 @@
-const deepClone = (obj: any) => JSON.parse(JSON.stringify(obj));
+const deepClone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
 
 export default deepClone;

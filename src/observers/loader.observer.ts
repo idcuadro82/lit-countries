@@ -18,11 +18,11 @@ class LoaderObserver {
     this.notify();
   }
 
-  addSubscriber = (callback: Function) => {
+  addSubscriber = (callback: Function): void => {
     this._subscribers.push(callback);
   }
 
-  notify = () => {
+  notify = (): void => {
     this._subscribers.forEach(subscriber => {
       subscriber(this.isLoading);
     });

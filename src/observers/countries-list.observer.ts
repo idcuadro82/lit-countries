@@ -1,14 +1,18 @@
-import Country from '@models/country.model';
-import REGIONS_CONFIG from '@config/regions.config';
-import { IFilteredCountries, initFilteredCountries } from '@models/filtered-countries.model';
+import ICountry from '@models/country.model';
+import { initRegions, IRegions } from '@models/region.model';
 import deepClone from '@utils/deep-clone';
+import { isValidRegion } from '../config/regions.config';
+
+const countryNameIncludeString = (countryName: string, filter: string) => {
+  return filter ? countryName.toLowerCase().includes(filter.toLowerCase()) : true;
+}
 
 class CountriesListObserver {
   private static instance: CountriesListObserver;
 
-  _currentFilter: String = '';
-  _countriesList: Country[] = [];
-  _filteredCountriesList: IFilteredCountries = {};
+  _currentFilter: string = '';
+  _countriesList: ICountry[] = [];
+  _regions: IRegions;
   _subscribers: any[] = [];
 
   static getInstance(): CountriesListObserver {
@@ -17,36 +21,40 @@ class CountriesListObserver {
   }
 
   constructor() {
-    this._filteredCountriesList = deepClone(initFilteredCountries);
+    this._regions = deepClone(initRegions);
   }
 
-  get countriesList(): Country[] {
-    return this._filteredCountriesList;
+  get regions(): IRegions {
+    return this._regions;
   };
 
-  set countriesList(countriesList: Country[]) {
-    this._countriesList = deepClone(countriesList);
-    this._filteredCountriesList = this._groupByRegion(deepClone(countriesList));
+  set regions(regions: IRegions) {
+    this._regions = deepClone(regions);
     this.notify();
   }
 
-  private _groupByRegion = (countriesList: Country[], countryName?: String) => {
-    const regions: IFilteredCountries = deepClone(initFilteredCountries);
-    countriesList.forEach((country: Country) => {
-      const validRegion = country.region && country.region !== REGIONS_CONFIG.POLAR;
-      const validName = countryName ? country.name.toLowerCase().includes(countryName.toLowerCase()) : true;
-      validRegion && validName && regions[country.region].push(country);
+  private _groupByRegion = (countries: ICountry[], countryName?: string) => {
+    const regions: IRegions = deepClone(initRegions);
+    countries.forEach((country: ICountry) => {
+      if (isValidRegion(country.region) && countryNameIncludeString(country.name, countryName)) {
+        regions[country.region].push(country);
+      }
     });
     return regions;
   }
 
-  hasCountries = () => {
-    return Object.keys(this._filteredCountriesList).find(region => this._filteredCountriesList[region].length);
+  setRegions = (countries: ICountry[]) => {
+    this._countriesList = deepClone(countries);
+    this.regions = this._groupByRegion(deepClone(countries));
   }
 
-  filterCountriesList = (countryName: String) => {
+  hasCountries = () => {
+    return Object.keys(this._regions).find(region => this._regions[region].length);
+  }
+
+  filterCountriesList = (countryName: string) => {
     this._currentFilter = countryName;
-    this._filteredCountriesList = this._groupByRegion(this._countriesList, this._currentFilter);
+    this._regions = this._groupByRegion(this._countriesList, this._currentFilter);
     this.notify();
   }
 
@@ -54,7 +62,7 @@ class CountriesListObserver {
     this._subscribers.push(callback);
   }
 
-  setCountryFavoriteState = (selectedCountry: Country) => {
+  setCountryFavoriteState = (selectedCountry: ICountry) => {
     let countryRef = this._countriesList.find(country => country.alpha3Code === selectedCountry.alpha3Code);
     countryRef.isFavorite = !countryRef.isFavorite;
     this.filterCountriesList(this._currentFilter)
@@ -62,7 +70,7 @@ class CountriesListObserver {
 
   notify = () => {
     this._subscribers.forEach(subscriber => {
-      subscriber(this.countriesList);
+      subscriber(this.regions);
     });
   }
 }

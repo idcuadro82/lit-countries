@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const searcherBarCSS = css`
+const searcherBarCSS: CSSResult = css`
   .searcher-bar {
     background-color: var(--gray);
     display: flex;

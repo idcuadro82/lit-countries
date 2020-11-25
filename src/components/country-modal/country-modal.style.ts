@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const countryModalCSS = css`
+const countryModalCSS: CSSResult = css`
   :host {
     --icon-size: 25px;
   }
@@ -36,7 +36,7 @@ const countryModalCSS = css`
 
   .modal-container {
     background-color: var(--white);
-    max-width: var(--breakpoint-md);
+    max-width: var(--md-content-width);
     padding: 50px;
     position: relative;
     width: 100%;
@@ -67,6 +67,7 @@ const countryModalCSS = css`
   }
 
   .country-flag {
+    border: 1px solid var(--light-gray);
     width: 100%;
   }
 

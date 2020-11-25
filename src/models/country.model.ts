@@ -1,12 +1,13 @@
-interface Country {
-  capital: String;
+interface ICountry {
+  alpha3Code: string;
+  capital: string;
   currencies: any;
-  flag: String;
+  flag: string;
   languages: any;
-  name: String;
+  name: string;
   population: Number;
-  region: String;
-  isFavorite: Boolean;
+  region: string;
+  isFavorite: boolean;
 }
 
-export default Country;
+export default ICountry;

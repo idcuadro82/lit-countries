@@ -2,7 +2,7 @@ import { customElement, html } from 'lit-element';
 
 import { BaseElement } from '@components/base-element';
 import countriesService, { CountriesService } from '@services/countries.service';
-import Country from '@models/country.model';
+import ICountry from '@models/country.model';
 import countriesListObserver from '@observers/countries-list.observer';
 import loaderObserver from '@observers/loader.observer';
 
@@ -13,15 +13,15 @@ export class Countries extends BaseElement {
   countriesService: CountriesService = countriesService;
 
   static get styles() {
-    return [super.styles, countriesCSS];
+    return [BaseElement.styles, countriesCSS];
   }
 
   constructor() {
     super();
     loaderObserver.isLoading = true;
     this.countriesService.getAllCountries()
-      .then((response: Country[]) => {
-        countriesListObserver.countriesList = response;
+      .then((response: ICountry[]) => {
+        countriesListObserver.setRegions(response);
       })
       .finally(() => loaderObserver.isLoading = false);
   }

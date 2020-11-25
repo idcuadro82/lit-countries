@@ -1,4 +1,4 @@
-import Country from '@models/country.model';
+import ICountry from '@models/country.model';
 import deepClone from '@utils/deep-clone';
 
 class ModalObserver {
@@ -6,18 +6,18 @@ class ModalObserver {
 
   _isOpened: boolean = false;
   _subscribers: any[] = [];
-  _selectedCountry: Country = null;
+  _selectedCountry: ICountry = null;
 
   public static getInstance(): ModalObserver {
     this.instance = ModalObserver.instance || new ModalObserver();
     return this.instance;
   }
 
-  get selectedCountry(): Country {
+  get selectedCountry(): ICountry {
     return this._selectedCountry;
   };
 
-  set selectedCountry(country: Country) {
+  set selectedCountry(country: ICountry) {
     this._selectedCountry = deepClone(country);
   }
 
@@ -30,11 +30,11 @@ class ModalObserver {
     this.notify();
   }
 
-  addSubscriber = (callback: Function) => {
+  addSubscriber = (callback: Function): void => {
     this._subscribers.push(callback);
   }
 
-  notify = () => {
+  notify = (): void => {
     this._subscribers.forEach(subscriber => {
       subscriber(this.isOpened);
     });

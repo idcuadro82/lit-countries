@@ -1,16 +1,16 @@
 import { customElement, html } from 'lit-element';
 
 import ICONS from '@constants/icons';
-import { BaseElement } from '../base-element';
+import { BaseElement } from '@components/base-element';
 import countriesListObserver from '@observers/countries-list.observer';
 import debounce from '@utils/debounce';
 
-import searcherBarCSS from '@components/searcher-bar/searcher-bar.style';
+import searcherBarCSS from './searcher-bar.style';
 
 @customElement('lit-searcher-bar')
 export class SearcherBar extends BaseElement {
   static get styles() {
-    return [super.styles, searcherBarCSS];
+    return [BaseElement.styles, searcherBarCSS];
   }
 
   render() {
@@ -28,7 +28,7 @@ export class SearcherBar extends BaseElement {
     `;
   }
 
-  private filterCountries = (event: CustomEvent) => {
+  private filterCountries = (event: CustomEvent): void => {
     countriesListObserver.filterCountriesList(event.detail.inputValue);
   }
 }

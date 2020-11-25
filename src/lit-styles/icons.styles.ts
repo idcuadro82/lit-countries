@@ -1,11 +1,11 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
 import '@assets/close-icon.png';
 import '@assets/search-icon.png';
 import '@assets/star-icon.svg';
 import '@assets/star-checked-icon.svg';
 
-const iconsCSS = css`
+const iconsCSS: CSSResult = css`
   .close-icon {
     background-image: url('assets/close-icon.png');
   }

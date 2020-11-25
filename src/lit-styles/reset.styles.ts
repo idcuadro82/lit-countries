@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const resetCSS = css`
+const resetCSS: CSSResult = css`
   * {
     box-sizing: border-box;
     font-family: sans-serif;

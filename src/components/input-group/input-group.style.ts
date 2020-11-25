@@ -1,6 +1,6 @@
-import { css } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-const inputGroupCSS = css`
+const inputGroupCSS: CSSResult = css`
   :host {
     --input-control-lateral-padding: 15px;
     --form-icon-size: 25px;

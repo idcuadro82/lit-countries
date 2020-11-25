@@ -1,8 +1,8 @@
-import { LitElement } from 'lit-element';
-import resetCSS from '../lit-styles/reset.style';
+import { CSSResultArray, LitElement, CSSResult } from 'lit-element';
+import resetCSS from '@litStyles/reset.styles';
 
 export class BaseElement extends LitElement {
-  public static get styles(): any {
+  static get styles(): CSSResultArray | CSSResult {
     return [resetCSS];
   }
 }

@@ -1,29 +1,28 @@
 import { customElement, html, property, query } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 
-import KEY_CODES from '@constants/key-codes';
 import { BaseElement } from '@components/base-element';
 import LIT_EVENTS from '@constants/lit-events';
 
 import inputGroupCSS from '@components/input-group/input-group.style';
-import iconsCSS from '@litStyles/icons.style';
+import iconsCSS from '@litStyles/icons.styles';
 
 @customElement('lit-input-group')
 export class InputGroup extends BaseElement {
   @property({ type: String })
-  icon: String = '';
+  icon: string = '';
   @property({ type: String })
   type: String = 'text';
   @property({ type: String })
-  placeholder: String = '';
+  placeholder: string = '';
   @property({ type: String, reflect: true },)
-  value: String = '';
+  value: string = '';
 
   @query('input')
   private inputRef: HTMLInputElement;
 
   static get styles() {
-    return [super.styles, iconsCSS, inputGroupCSS];
+    return [BaseElement.styles, iconsCSS, inputGroupCSS];
   }
 
   render() {
@@ -45,17 +44,17 @@ export class InputGroup extends BaseElement {
     `;
   }
 
-  private resolveIconClasses = (icon: String) => {
+  private resolveIconClasses = (icon: string): Function => {
     let classes: any = { 'form-icon': true };
     classes[icon as string] = true;
     return classMap(classes);
   }
 
-  private resolveInputClasses = (icon: String) => {
+  private resolveInputClasses = (icon: string): Function => {
     return classMap({ 'form-control': true, 'has-icon': !!icon });
   }
 
-  private handleInputOnChange = (event: Event) => {
+  private handleInputOnChange = (event: Event): void => {
     this.value = (event.target as HTMLInputElement).value;
   }
 
@@ -71,7 +70,7 @@ export class InputGroup extends BaseElement {
     );
   }
 
-  private handleIconClick = () => {      
+  private handleIconClick = (): void => {      
     this.dispatchEvent(
       new CustomEvent(LIT_EVENTS.FORM_GROUP_ICON_CLICK, { 
         detail: { inputValue: this.value },
