@@ -1,6 +1,10 @@
 import { css, CSSResult } from 'lit-element';
 
 const countriesListCSS: CSSResult = css`
+  :host {
+    --star-icon-size: 12px;
+  }
+
   .countries-list {
     align-items: flex-start;
     display: flex;
@@ -52,8 +56,8 @@ const countriesListCSS: CSSResult = css`
     background-repeat: no-repeat;
     background-size: 100% 100%;
     flex-shrink: 0;
-    height: 10px;
-    width: 10px;
+    height: var(--star-icon-size);
+    width: var(--star-icon-size);
   }
 `;
 

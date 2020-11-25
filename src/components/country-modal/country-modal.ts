@@ -5,6 +5,7 @@ import { BaseElement } from '@components/base-element';
 import modalObserver from '@observers/modal.observer';
 import countriesListObserver from '@observers/countries-list.observer';
 import { joinWithCommas } from '@utils/array.utils';
+import countriesService from '@services/countries.service';
 import ICONS from '@constants/icons';
 
 import countryModalCSS from './country-modal.styles';
@@ -62,6 +63,10 @@ export class CountryModal extends BaseElement {
                     <span class="subtitle">Language:</span>
                     <span>${joinWithCommas(selectedCountry.languages)}</span>
                   </div>
+                  <p class="modal-paragraph">
+                    <span class="subtitle">Boarder Countries:</span>
+                    <span>${joinWithCommas(countriesService.getBorderCountries(selectedCountry))}</span>
+                  </p>
                 </div>
                 <div class="country-flag-container">
                   <img class="country-flag" src=${selectedCountry.flag} alt="flag">

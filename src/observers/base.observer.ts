@@ -1,5 +1,5 @@
 export class BaseObserver<T> {
-  _subscribers: Function[] = [];
+  protected _subscribers: Function[] = [];
 
   addSubscriber = (callback: Function): void => {
     this._subscribers.push(callback);

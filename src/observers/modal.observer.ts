@@ -5,8 +5,8 @@ import { BaseObserver } from './base.observer';
 class ModalObserver extends BaseObserver<ModalObserver> {
   private static instance: ModalObserver;
 
-  _isOpened: boolean = false;
-  _selectedCountry: ICountry = null;
+  private _isOpened: boolean = false;
+  private _selectedCountry: ICountry = null;
 
   public static getInstance(): ModalObserver {
     this.instance = ModalObserver.instance || new ModalObserver();

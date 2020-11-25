@@ -2,7 +2,7 @@ import { BaseObserver } from './base.observer';
 class LoaderObserver extends BaseObserver<LoaderObserver> {
   private static instance: LoaderObserver;
 
-  _isLoading: boolean = false;
+  private _isLoading: boolean = false;
 
   public static getInstance(): LoaderObserver {
     this.instance = LoaderObserver.instance || new LoaderObserver();

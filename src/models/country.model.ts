@@ -1,9 +1,10 @@
 interface ICountry {
   alpha3Code: string;
+  borders: string[];
   capital: string;
-  currencies: any;
+  currencies: { name: string }[];
   flag: string;
-  languages: any;
+  languages: { name: string }[];
   name: string;
   population: Number;
   region: string;

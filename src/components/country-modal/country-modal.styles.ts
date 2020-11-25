@@ -47,9 +47,13 @@ const countryModalCSS: CSSResult = css`
   }
 
   .modal-content .modal-row {
-    align-items: center;
     display: flex;
     margin-bottom: 10px;
+  }
+
+  .modal-content .modal-row span,
+  .modal-content .modal-paragraph span {
+    line-height: 1.5;
   }
 
   .modal-content .modal-row.title-row {
@@ -61,8 +65,9 @@ const countryModalCSS: CSSResult = css`
   }
 
   .country-flag-container {
-    padding: 20px 0;
+    flex-shrink: 0;
     margin: 0 20px;
+    padding: 20px 0;
     width: 200px;
   }
 
@@ -78,6 +83,7 @@ const countryModalCSS: CSSResult = css`
   }
 
   .subtitle {
+    flex-shrink: 0;
     font-weight: 700;
     line-height: 1.2;
     margin-right: 5px;

@@ -11,9 +11,9 @@ const countryNameIncludeString = (countryName: string, filter: string) => {
 class CountriesListObserver extends BaseObserver<CountriesListObserver> {
   private static instance: CountriesListObserver;
 
-  _currentFilter: string = '';
-  _countriesList: ICountry[] = [];
-  _regions: IRegions;
+  private _currentFilter: string = '';
+  private _countriesList: ICountry[] = [];
+  private _regions: IRegions;
 
   static getInstance(): CountriesListObserver {
     this.instance = CountriesListObserver.instance || new CountriesListObserver();
@@ -24,6 +24,10 @@ class CountriesListObserver extends BaseObserver<CountriesListObserver> {
     super();
     this._regions = deepClone(initRegions);
   }
+
+  get countries(): ICountry[] {
+    return this._countriesList;
+  };
 
   get regions(): IRegions {
     return this._regions;
